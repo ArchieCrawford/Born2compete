@@ -44,3 +44,13 @@ npm run start
 - `src/lib/data.ts` – query helpers used by pages (swap this layer for a real database later)
 - `src/components/` – header, nav, widgets, tables, cards
 - `src/app/` – routes
+
+## Deploying to Netlify
+
+The repo includes a `netlify.toml` that uses the official Next.js runtime.
+
+1. In Netlify, choose **Add new site → Import an existing project** and pick
+   `ArchieCrawford/Born2compete` on the `master` branch.
+2. Netlify reads `netlify.toml`, so leave the build command (`npm run build`) and
+   publish directory (`.next`) as detected.
+3. Deploy. Every push to `master` triggers a new build.
