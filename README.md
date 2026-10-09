@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Born2Compete
 
-## Getting Started
+A college recruiting network in the style of Rivals / On3: national player and team
+rankings, prospect profiles, commitment tracking, FutureCast predictions, transfer
+portal coverage, camp events, a team site for every program and fan message boards.
 
-First, run the development server:
+Built with Next.js (App Router), TypeScript and Tailwind CSS. All data is generated
+deterministically at build time from `src/lib/seed.ts`, so the site runs with no
+database or external services. Every prospect, article, forum post and portal entry
+is simulated demo content.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build (prerenders ~1,500 pages)
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Routes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Route | What it is |
+| --- | --- |
+| `/` | Home: hero story, headlines, trending prospects, news feed, portal, sidebar widgets |
+| `/news`, `/news/[slug]` | News feed with category filter; article pages with a premium paywall |
+| `/football`, `/basketball` | Sport hubs |
+| `/rankings/player/[sport]/[year]` | Rivals250 / Rivals150 player rankings with position, state, stars, status and team filters |
+| `/rankings/team/[sport]/[year]` | Team class rankings (commits, 5/4/3-star counts, average, points) |
+| `/prospects/[slug]` | Prospect profile: ranks, offers, timeline, FutureCast, NIL valuation |
+| `/teams`, `/teams/[slug]` | Team site directory and per-team sites (news, commits, targets, portal, board) |
+| `/transfer-portal`, `/transfer-portal/[slug]` | Portal feed, portal team rankings and entry pages |
+| `/forums`, `/forums/[board]`, `/forums/[board]/[thread]` | Message boards |
+| `/futurecast` | Analyst prediction feed |
+| `/camps` | Camp Series schedule |
+| `/search?q=` | Search across prospects, teams, portal, news and threads |
+| `/subscribe`, `/login`, `/about` | Membership, login and company pages |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project layout
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/lib/types.ts` – data models
+- `src/lib/teams.ts` – program directory (colors, conference, site name)
+- `src/lib/seed.ts` – deterministic data generator
+- `src/lib/data.ts` – query helpers used by pages (swap this layer for a real database later)
+- `src/components/` – header, nav, widgets, tables, cards
+- `src/app/` – routes
